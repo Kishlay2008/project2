@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBook — Intelligent Scheduling & CRM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #0a0a0a; color: #ededed; }
+        .serif { font-family: 'Newsreader', serif; }
+        .border-mono { border-color: #262626; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-white selection:text-black">
+
+    <!-- Header -->
+    <header class="border-b border-mono px-8 py-6 flex justify-between items-center max-w-7xl mx-auto w-full">
+        <a href="/" class="text-xl font-bold tracking-tighter uppercase">SmartBook<span class="text-xs align-super font-mono ml-1">IN</span></a>
+        <nav class="flex space-x-8 text-sm font-medium tracking-wide">
+            <a href="/book.html" class="hover:underline underline-offset-4">Book Demo</a>
+            <a href="/admin.html" class="hover:underline underline-offset-4">Dashboard</a>
+            <a href="/manage.html" class="hover:underline underline-offset-4">My Bookings</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-8 py-20 w-full flex-grow flex flex-col justify-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div class="lg:col-span-8 space-y-8">
+                <span class="text-xs font-mono tracking-widest uppercase border border-mono px-3 py-1">Engineered for Indian Services</span>
+                <h1 class="text-5xl sm:text-7xl font-light leading-none tracking-tight">
+                    Precision booking. <br/>
+                    <span class="serif italic font-normal">Zero friction.</span>
+                </h1>
+                <p class="text-lg text-neutral-400 max-w-xl font-light leading-relaxed">
+                    Automated appointment platform for clinics, boutique salons, and fitness studios. Eliminates no-shows via automated WhatsApp reminders and upfront UPI security deposits.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <a href="/book.html" class="bg-white text-black px-8 py-4 font-semibold text-center text-sm tracking-wider uppercase hover:bg-neutral-200 transition-colors">
+                        Test Customer Flow
+                    </a>
+                    <a href="/admin.html" class="border border-mono px-8 py-4 font-semibold text-center text-sm tracking-wider uppercase hover:border-white transition-colors">
+                        View Merchant Admin
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features Summary -->
+            <div class="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-mono pt-8 lg:pt-0 lg:pl-12 space-y-6">
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-500 mb-1">01 / Payments</h3>
+                    <p class="text-sm">Instant UPI deposit verification to eliminate late cancellations.</p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-500 mb-1">02 / Intelligence</h3>
+                    <p class="text-sm">Gemini 2.5 Flash scheduling engine optimizing slot capacity automatically.</p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-wider text-neutral-500 mb-1">03 / Messaging</h3>
+                    <p class="text-sm">Native WhatsApp API integration for localized Indian reminders.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-mono px-8 py-6 max-w-7xl mx-auto w-full flex justify-between items-center text-xs text-neutral-500 font-mono">
+        <p>© 2026 SMARTBOOK TECHNOLOGIES PVT LTD</p>
+        <p>BHILAI / MUMBAI / BENGALURU</p>
+    </footer>
+
+</body>
+</html>

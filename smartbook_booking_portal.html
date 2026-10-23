@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment — SmartBook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #0a0a0a; color: #ededed; }
+        .border-mono { border-color: #262626; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-mono px-8 py-6 max-w-5xl mx-auto w-full flex justify-between items-center">
+        <a href="/" class="text-xl font-bold tracking-tighter">SMARTBOOK</a>
+        <span class="text-xs font-mono text-neutral-500">APPOINTMENT ENGINE</span>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-8 py-12 w-full flex-grow">
+        <div class="max-w-xl mx-auto space-y-8">
+            <div class="border-b border-mono pb-4">
+                <h1 class="text-2xl font-light">Select Service & Slot</h1>
+                <p class="text-xs font-mono text-neutral-400 mt-1">AURA WELLNESS SALON & CLINIC</p>
+            </div>
+
+            <form id="bookingForm" class="space-y-6">
+                <!-- Service Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-mono uppercase text-neutral-400">01. Choose Service</label>
+                    <select id="service" class="w-full bg-black border border-mono p-3 text-sm focus:border-white outline-none">
+                        <option value="consultation">Dermatology Consultation — ₹500</option>
+                        <option value="haircut">Styling & Hair Treatment — ₹1,200</option>
+                        <option value="fitness">Personal Training Session — ₹800</option>
+                    </select>
+                </div>
+
+                <!-- Date & Time Selection -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-mono uppercase text-neutral-400">02. Date</label>
+                        <input type="date" id="date" required class="w-full bg-black border border-mono p-3 text-sm focus:border-white outline-none text-white">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-mono uppercase text-neutral-400">03. Time Slot</label>
+                        <select id="slot" class="w-full bg-black border border-mono p-3 text-sm focus:border-white outline-none">
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="02:30 PM">02:30 PM</option>
+                            <option value="06:00 PM">06:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="space-y-4 pt-4 border-t border-mono">
+                    <label class="block text-xs font-mono uppercase text-neutral-400">04. Customer Info</label>
+                    <input type="text" id="name" placeholder="Full Name" required class="w-full bg-black border border-mono p-3 text-sm focus:border-white outline-none">
+                    <input type="tel" id="phone" placeholder="WhatsApp Number (+91...)" required class="w-full bg-black border border-mono p-3 text-sm focus:border-white outline-none">
+                </div>
+
+                <!-- Payment Placeholder -->
+                <div class="border border-mono p-4 bg-neutral-950 space-y-3">
+                    <div class="flex justify-between text-xs font-mono">
+                        <span>UPI Security Deposit (50%)</span>
+                        <span id="depositAmount">₹250</span>
+                    </div>
+                    <p class="text-xs text-neutral-500">Scan UPI QR to hold your slot. Refundable up to 4 hrs before appointment.</p>
+                    <div class="h-28 border border-dashed border-mono flex items-center justify-center text-xs font-mono text-neutral-600">
+                        [ DUMMY UPI QR CODE PLACEHOLDER ]
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-white text-black py-4 font-semibold text-xs tracking-widest uppercase hover:bg-neutral-200 transition-colors">
+                    Confirm & Reserve Slot
+                </button>
+            </form>
+
+            <div id="confirmation" class="hidden border border-mono p-6 space-y-3">
+                <p class="text-xs font-mono text-emerald-500">✓ BOOKING CONFIRMED</p>
+                <p class="text-sm font-light">Your appointment is scheduled. Confirmation details sent via WhatsApp.</p>
+                <a href="/manage.html" class="inline-block text-xs font-mono underline underline-offset-4">View My Booking Portal →</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-mono px-8 py-6 max-w-5xl mx-auto w-full text-xs text-neutral-500 font-mono">
+        SECURE TRANSACTION — SMARTBOOK ENGINE
+    </footer>
+
+    <script src="/js/firebase-config.js"></script>
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                service: document.getElementById('service').value,
+                date: document.getElementById('date').value,
+                slot: document.getElementById('slot').value,
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value
+            };
+
+            const res = await fetch('/api/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                document.getElementById('bookingForm').classList.add('hidden');
+                document.getElementById('confirmation').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

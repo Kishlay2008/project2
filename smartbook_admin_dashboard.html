@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Dashboard — SmartBook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #0a0a0a; color: #ededed; }
+        .border-mono { border-color: #262626; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Admin Nav -->
+    <header class="border-b border-mono px-8 py-6 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <a href="/" class="text-xl font-bold tracking-tighter">SMARTBOOK</a>
+            <span class="text-xs font-mono border border-mono px-2 py-0.5">ADMIN</span>
+        </div>
+        <div class="text-xs font-mono text-neutral-400">
+            Aura Wellness Salon & Clinic
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="px-8 py-8 w-full max-w-7xl mx-auto space-y-8 flex-grow">
+        
+        <!-- Metrics Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="border border-mono p-4">
+                <p class="text-xs font-mono text-neutral-500 uppercase">Today's Appointments</p>
+                <p class="text-3xl font-light mt-1">14</p>
+            </div>
+            <div class="border border-mono p-4">
+                <p class="text-xs font-mono text-neutral-500 uppercase">Revenue (Deposits)</p>
+                <p class="text-3xl font-light mt-1">₹7,400</p>
+            </div>
+            <div class="border border-mono p-4">
+                <p class="text-xs font-mono text-neutral-500 uppercase">No-Show Rate</p>
+                <p class="text-3xl font-light mt-1">2.1%</p>
+            </div>
+            <div class="border border-mono p-4">
+                <p class="text-xs font-mono text-neutral-500 uppercase">AI Capacity Score</p>
+                <p class="text-3xl font-light mt-1">94/100</p>
+            </div>
+        </div>
+
+        <!-- Dashboard Layout Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left: Chart & Bookings -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- Analytics Chart -->
+                <div class="border border-mono p-6">
+                    <h2 class="text-xs font-mono uppercase text-neutral-400 mb-4">Weekly Booking Capacity Overview</h2>
+                    <canvas id="monochromeChart" class="max-h-64"></canvas>
+                </div>
+
+                <!-- Recent Bookings Table -->
+                <div class="border border-mono p-6 space-y-4">
+                    <h2 class="text-xs font-mono uppercase text-neutral-400">Today's Schedule</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs font-mono">
+                            <thead class="border-b border-mono text-neutral-500">
+                                <tr>
+                                    <th class="pb-2">TIME</th>
+                                    <th class="pb-2">CLIENT</th>
+                                    <th class="pb-2">SERVICE</th>
+                                    <th class="pb-2">DEPOSIT</th>
+                                    <th class="pb-2">STATUS</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-mono">
+                                <tr>
+                                    <td class="py-3">10:00 AM</td>
+                                    <td>Ananya Sharma</td>
+                                    <td>Consultation</td>
+                                    <td>₹250 Paid</td>
+                                    <td><span class="border border-white px-2 py-0.5">CONFIRMED</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3">02:30 PM</td>
+                                    <td>Rahul Verma</td>
+                                    <td>Hair Styling</td>
+                                    <td>₹600 Paid</td>
+                                    <td><span class="border border-white px-2 py-0.5">CONFIRMED</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: AI Intelligence Simulator -->
+            <div class="lg:col-span-4 border border-mono p-6 space-y-6">
+                <div>
+                    <h2 class="text-xs font-mono uppercase text-neutral-400">Gemini 2.5 Scheduling Engine</h2>
+                    <p class="text-xs text-neutral-500 mt-1">Run intelligent dynamic slot pricing and no-show analysis.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="block text-xs font-mono text-neutral-400">INPUT BUSINESS QUERY</label>
+                    <textarea id="aiPrompt" rows="3" class="w-full bg-black border border-mono p-3 text-xs focus:border-white outline-none" placeholder="e.g., Optimize slots for upcoming Friday festival demand..."></textarea>
+                    <button id="runAi" class="w-full bg-white text-black py-3 font-semibold text-xs tracking-wider uppercase hover:bg-neutral-200 transition-colors">
+                        Run AI Analysis
+                    </button>
+                </div>
+
+                <div id="aiOutput" class="border border-mono p-4 text-xs font-mono leading-relaxed hidden text-neutral-300 bg-neutral-950">
+                    <!-- AI response injected here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-mono px-8 py-6 text-xs text-neutral-500 font-mono">
+        SMARTBOOK MERCHANT ADMIN — NODE v20
+    </footer>
+
+    <script>
+        // Setup Monochrome Chart
+        const ctx = document.getElementById('monochromeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Bookings',
+                    data: [12, 19, 15, 22, 30, 45, 38],
+                    borderColor: '#ffffff',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    borderWidth: 1.5,
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#262626' }, ticks: { color: '#737373', font: { family: 'Space Grotesk' } } },
+                    y: { grid: { color: '#262626' }, ticks: { color: '#737373', font: { family: 'Space Grotesk' } } }
+                }
+            }
+        });
+
+        // AI Engine Simulator Call
+        document.getElementById('runAi').addEventListener('click', async () => {
+            const prompt = document.getElementById('aiPrompt').value || "Analyze slot capacity for peak weekend hours.";
+            const output = document.getElementById('aiOutput');
+            output.classList.remove('hidden');
+            output.innerHTML = "PROCESSSING WITH GEMINI 2.5 FLASH...";
+
+            try {
+                const res = await fetch('/api/ai-optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await res.json();
+                output.innerHTML = data.recommendation;
+            } catch (e) {
+                output.innerHTML = "RECOMMENDATION: Increase weekend slot deposit by 15% to mitigate 12% anticipated peak rush cancellation risk.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal — SmartBook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #0a0a0a; color: #ededed; }
+        .border-mono { border-color: #262626; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <header class="border-b border-mono px-8 py-6 max-w-4xl mx-auto w-full flex justify-between items-center">
+        <a href="/" class="text-xl font-bold tracking-tighter">SMARTBOOK</a>
+        <span class="text-xs font-mono text-neutral-500">CLIENT MANAGEMENT</span>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-8 py-12 w-full flex-grow space-y-8">
+        <!-- Customer Profile Summary -->
+        <div class="border border-mono p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <h1 class="text-xl font-light">Ananya Sharma</h1>
+                <p class="text-xs font-mono text-neutral-500 mt-1">+91 98765 43210</p>
+            </div>
+            <div class="border border-mono px-4 py-2 text-right">
+                <span class="block text-[10px] font-mono text-neutral-500 uppercase">Loyalty Reward Points</span>
+                <span class="text-lg font-mono">450 PTS</span>
+            </div>
+        </div>
+
+        <!-- Bookings Section -->
+        <div class="space-y-4">
+            <h2 class="text-xs font-mono uppercase text-neutral-400">Upcoming Appointments</h2>
+            
+            <div class="border border-mono p-6 space-y-4">
+                <div class="flex justify-between items-start border-b border-mono pb-4">
+                    <div>
+                        <h3 class="font-medium text-base">Dermatology Consultation</h3>
+                        <p class="text-xs text-neutral-400">Aura Wellness Salon & Clinic</p>
+                    </div>
+                    <span class="text-xs font-mono border border-white px-2 py-1">CONFIRMED</span>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                    <div>
+                        <span class="text-neutral-500 block">DATE & TIME</span>
+                        <span>Tomorrow at 10:00 AM</span>
+                    </div>
+                    <div>
+                        <span class="text-neutral-500 block">DEPOSIT PAID</span>
+                        <span>₹250.00 (via UPI)</span>
+                    </div>
+                </div>
+
+                <div class="pt-2 flex gap-4 text-xs font-mono">
+                    <button class="underline underline-offset-4 text-neutral-400 hover:text-white">Reschedule</button>
+                    <button class="underline underline-offset-4 text-neutral-400 hover:text-white">Cancel Booking</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-mono px-8 py-6 max-w-4xl mx-auto w-full text-xs text-neutral-500 font-mono">
+        SMARTBOOK CLIENT ENGINE — PRIVACY FIRST
+    </footer>
+
+</body>
+</html>
